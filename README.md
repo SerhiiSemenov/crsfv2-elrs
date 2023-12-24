@@ -1,5 +1,13 @@
 # CRSFv2
-This is an example CRSF code used for testing the interface between computer and TBS Crossfire TXv2. The implementation in Agilicious is much more efficient.
+This is a simple test for CRSF protocol.
+The UART port is hardcoded in the file main.py at line 8
+```
+com = communication(com_port='/dev/ttyUSB0')
+```
+For running execute:
+```
+python3 main.py
+```
 
 # CRSF Frame Structure
 CRSF protocol consists of frames with the following structure: <br />
