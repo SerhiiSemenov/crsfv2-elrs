@@ -67,3 +67,16 @@ class communication():
         self.payload = packed_channel
         self.crc = crc
         self.message = [0xee, 0x18, 0x16] + self.payload + self.crc
+
+    def update_telemetry(self):
+        # calculate crc
+        # uplink_RSSI_1/uplink_RSSI_2/uplink_Link_quality/uplink_SNR/active_antenna/rf_Mode/uplink_TX_Power/downlink_RSSI/downlink_Link_quality/downlink_SNR
+        # telemetry = [0x5A, 0x5A, 0x5A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        telemetry = [0x05, 0x05, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        crc = crc_transmit([0xC], telemetry)
+        crc = [int(crc, 16)]
+
+        self.payload = telemetry
+        self.crc = crc
+        # [CRSF_ADDRESS_RADIO_TRANSMITTER = 0xEE] [LinkStatisticsFrameLength + 2 = 12] [CRSF_FRAMETYPE_LINK_STATISTICS = 0x14]
+        self.message = [0xee, 0x0C, 0x14] + self.payload + self.crc

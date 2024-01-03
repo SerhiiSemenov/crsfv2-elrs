@@ -44,6 +44,10 @@ while True:
     dicts.append(data)
     time.sleep(0.01)
 
+    time.sleep(1)
+    com.update_telemetry()
+    time.sleep(1)
+
     if (time.time()-t1) > save_after:
         print("saving csv file")
         com.update_data(disarm_channels)
